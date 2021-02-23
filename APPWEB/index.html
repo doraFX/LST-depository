@@ -5,6 +5,15 @@
 		<link rel="stylesheet" href="css/style.css">
 		<title></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+		<script type="text/javascript">
+			function showimg() {
+				document.getElementById('qrcode').style.display = "block";
+			}
+		
+			function hideimg() {
+				document.getElementById('qrcode').style.display = "none";
+			}
+		</script>
 	</head>
 	<body>
 		<div class="page">
@@ -26,9 +35,16 @@
 							<h6>你的个人健康通行证</h6>
 						</div>
 					</div>
+					<div class="middle">
+						<p>版本号:&nbsp;2.4&nbsp;&nbsp;时间:&nbsp;2021.2</p>
+					</div>
 					<div class="download">
 						<button class="download-button-android" type="button">安卓下载</button>
-						<button class="download-button-web" type="button">WEB体验</button>
+						<button class="download-button-web" type="button">WEB体验
+						<button  class="download-button-qrcode" onmouseover="javascript:showimg();" onmouseout="javascript:hideimg();"></button>
+					</div>
+					<div class="qrcode">
+						<img class="qrcode-img" id="qrcode" src="img/二维码.png">
 					</div>
 				</div>
 				<div class="right">
@@ -61,10 +77,10 @@
 					<p>健康码APP通过随机生成数据保障您的隐私，有效防止个人隐私泄露。我们始终相信，您的隐私安全比什么都重要</p>
 				</div>
 				<div class="img">
-					<img class="img-pic" src="img/03.png" >	
+					<img class="img-pic" src="img/03.png">
 				</div>
 				<div class="img0">
-				<img class="img-pic0" src="img/words.png" >
+					<img class="img-pic0" src="img/words.png">
 				</div>
 			</div>
 			<div class="block4">
@@ -79,7 +95,7 @@
 						<p>本地化运行，核心功能无需联网即可使用</p>
 					</div>
 					<div class="on-display">
-						<img class="on-display-img" src="./img/platform.svg">
+						<img class="on-display-img" src="./img/platform-color.svg">
 						<h1>跨平台</h1>
 						<p>可在安卓端与网页端使用</p>
 					</div>
@@ -89,7 +105,7 @@
 						<p>不包含任何广告，给您舒爽的使用体验</p>
 					</div>
 					<div class="on-display">
-						<img class="on-display-img" src="./img/Battery.svg">
+						<img class="on-display-img" src="./img/high_battery.svg">
 						<h1>低功耗</h1>
 						<p>为您的手机节省电量</p>
 					</div>

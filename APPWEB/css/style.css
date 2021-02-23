@@ -128,7 +128,7 @@
 		height: 8vw;
 		border-radius: 1vw;
 	}
-
+	
 	.block1 .left .head .logodescription {
 		margin-left: 1.5vw;
 		height: auto;
@@ -150,10 +150,19 @@
 		padding-left: 0.1041666vw;
 		font-family: "方正兰亭中黑", sans-serif;
 	}
+	
+	.block1 .left .middle{
+		margin-top: 1vw;
+	}
+	
+	.block1 .left .middle p{
+		font-size: 0.9vw;
+		color: #8b8b8b;
+	}
 
 	.block1 .left .download {
 		display: flex;
-		margin-top: 2vw;
+		margin-top: 1vw;
 	}
 
 	.download-button-android {
@@ -162,7 +171,7 @@
 		font-weight: 600;
 		height: 3vw;
 		border-radius: 1.5vw;
-		margin-right: 20px;
+		margin-right: 1.2vw;
 		color: #ffffff;
 		background-color: #019fe8;
 		border: none;
@@ -181,7 +190,7 @@
 		font-weight: 600;
 		height: 3vw;
 		border-radius: 1.5vw;
-		margin-right: 20px;
+		margin-right: 1.2vw;
 		color: #ffffff;
 		background-color: #58bf6c;
 		border: none;
@@ -192,6 +201,46 @@
 	.download-button-web:hover {
 		background-color: #4aa15a;
 		cursor: pointer;
+	}
+	
+	.download-button-qrcode {
+		margin: 0.4vw 0.4vw;
+		width: 2.2vw;
+		height: 2.2vw;
+		border: none;
+		border-radius: 0.2vw;
+		background: url(../img/QR_code_blue.svg);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 90%;
+		background-color: #ffffff90;
+		transition: background 0.2s,background-color 0.2s;
+	}
+
+	.download-button-qrcode:hover {
+		cursor: pointer;
+		margin: 0.4vw 0.4vw;
+		width: 2.2vw;
+		height: 2.2vw;
+		border: none;
+		background: url(../img/QR_code.svg);
+		background-color: #ffffff;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 90%;
+	}
+	
+	.block1 .qrcode{
+		margin-left: 18vw;
+		margin-top: 0.5vw;
+	}
+	
+	.block1 .qrcode-img{
+		width: 7.4vw;
+		height: 7.4vw;
+		border: 0.3vw solid #019fe8;
+		border-radius: 0.4vw;
+		display: none;
 	}
 
 	.block1 .right {
@@ -255,11 +304,13 @@
 		bottom: 0;
 		position: absolute;
 		margin-left: calc(50vw - 30.734vh);
+		z-index: 400;
 	}
 
 	.block3 .img .img-pic {
 		height: 100%;
 		transition: transform 0.5s ease;
+		
 	}
 
 	.block3 .img .img-pic:hover {
@@ -267,9 +318,11 @@
 	}
 
 	.block3 .img0 {
-		height: 55vh;
-		margin-left: calc(49.5vw);
-		margin-top: 25vh;
+		height: 70vh;
+		position: absolute;
+		margin-left: 44vw;
+		bottom: 0;
+		z-index: 10;
 	}
 
 	.block3 .img0 .img-pic0 {
@@ -288,7 +341,7 @@
 	.block4 .display {
 		position: relative;
 		display: flex;
-		margin-left: 24vw;
+		margin-left: calc(50vw - 26vw);
 		top: calc(7vh + 5vw);
 	}
 
@@ -465,7 +518,7 @@
 	/*块1*/
 
 	.block1 {
-		min-height: 100vh;
+		min-height: calc(50vh + 100vw);
 		position: relative;
 		width: 100%;
 		background: linear-gradient(135deg,rgb(250,242,255)10%,rgb(204,218,255)100%);
@@ -509,10 +562,19 @@
 		margin-top: 0.25vh;
 		font-family: "方正兰亭中黑", sans-serif;
 	}
+	
+	.block1 .left .middle{
+		margin-top: 2vw;
+	}
+	
+	.block1 .left .middle p{
+		font-size: 0.9vw;
+		color: #8b8b8b;
+	}
 
 	.block1 .left .download {
 		display: grid;
-		margin-top: 8vw;
+		margin-top: 5vw;
 	}
 
 	.download-button-android {
@@ -551,6 +613,10 @@
 		background-color: #4aa15a;
 		cursor: pointer;
 	}
+	
+	.download-button-qrcode {
+		display: none;
+	}
 
 	.block1 .right {
 		position: absolute;
@@ -569,7 +635,7 @@
 	/*块2*/
 
 	.block2 {
-		min-height: 180vh;
+		min-height: calc(85vh + 200vw);
 		position: relative;
 		width: 100%;
 		background-color: #ffffff;
@@ -583,14 +649,13 @@
 
 	.block2 .display .on-display {
 		position: relative;
-		height: 40vh;
-		width: auto;
+		width: 40vw;
 		padding-left: 30vw;
 		padding-bottom: 8vh;
 	}
 
 	.block2 .display .on-display .on-display-img {
-		height: 100%;
+		width: 100%;
 	}
 
 	.block2 .display .on-display p {
@@ -604,17 +669,18 @@
 	/*块3*/
 
 	.block3 {
-		min-height: 90vh;
+		min-height: calc(40vh + 85vw);
 		position: relative;
 		width: 100%;
 		background:  linear-gradient(rgba(231, 254, 247, 1), rgba(253, 246, 245, 1));
 	}
 
 	.block3 .img {
-		height: 50vh;
-		bottom: 0;
+		height: 90vw;
 		position: absolute;
-		margin-left: 10vw;
+		margin-left: 17vw;
+		bottom: 0;
+		z-index: 400;
 	}
 
 	.block3 .img .img-pic {
@@ -623,13 +689,15 @@
 	}
 
 	.block3 .img .img-pic:hover {
-		transform: translateX(-30%);
+		transform: translateX(-45%);
 	}
 
 	.block3 .img0 {
-		height: 45vh;
-		margin-left: calc(46vw);
-		margin-top: 24vh;
+		height: 90vw;
+		position: absolute;
+		margin-left: 36vw;
+		bottom: 0;
+		z-index: 10;
 	}
 
 	.block3 .img0 .img-pic0 {
@@ -639,7 +707,7 @@
 	/*块4*/
 
 	.block4 {
-		min-height: calc(80vh + 75vw);
+		min-height: calc(104vh + 60vw);
 		position: relative;
 		width: 100%;
 		background-color: #ffffff;
@@ -654,7 +722,7 @@
 	.block4 .display .on-display {
 		position: relative;
 		width: 100vw;
-		margin-bottom: 4vh;
+		margin-bottom: 10vh;
 	}
 
 	.block4 .display .on-display .on-display-img {
