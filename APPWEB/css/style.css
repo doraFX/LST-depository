@@ -1,3 +1,5 @@
+@import "https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800,900";
+
 @font-face {
 	font-family: "方正兰亭黑";
 	src: url("../font/FZLTHJW.TTF")
@@ -63,6 +65,7 @@ html,body{
 		margin-top: 20px;
 		text-align: center;
 		font-size: 18px;
+		font-family: "Roboto", sans-serif;
 	}
 
 	/*导航栏*/
@@ -90,7 +93,7 @@ html,body{
 	}
 	
 	.bar .logo p{
-		padding: 28px 4px;
+		padding: 28px 0px;
 		font-size: 24px;
 		line-height: 24px;
 		font-family: "方正兰亭粗黑", sans-serif;
@@ -392,6 +395,11 @@ html,body{
 		position: relative;
 		width: 50%;
 		left: 2.5vw;
+		transition: transform 0.3s ease;
+	}
+	
+	.block4 .display .on-display .on-display-img:hover{
+		transform: translateY(-20%);
 	}
 
 	.block4 .display .on-display p {
@@ -401,6 +409,7 @@ html,body{
 		font-weight: 900;
 		color: #5a5a5a;
 		line-height: 1.1;
+		font-family: "Roboto", sans-serif;
 	}
 
 	.block4 .display .on-display h1 {
@@ -434,6 +443,7 @@ html,body{
 		margin-top: 10px;
 		text-align: center;
 		font-size: 18px;
+		font-family: "方正兰亭黑", sans-serif;
 	}
 
 	.block5 .head .button-down {
