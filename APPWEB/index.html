@@ -19,12 +19,16 @@
 	<body>
 		<div class="page">
 			<div class="bar">
+				<div class="logo">
+					<img src="./img/logo320.png" >
+					<p>健康码</p>
+				</div>
 				<a href="#block1"><button class="bar-download" type="button">立即下载</button></a>
 				<div class="bar-navi">
-					<a href="">首页</a>
+					<a href="#block1">首页</a>
 					<a href="#block2">介绍</a>
-					<a href="">关于</a>
-					<a href="">联系</a>
+					<a href="#block3">隐私</a>
+					<a href="#block4">更多</a>
 				</div>
 			</div>
 			<div id="block1" class="block1">
@@ -42,7 +46,7 @@
 					<div class="download">
 						<button class="download-button-android" type="button">安卓下载</button>
 						<button class="download-button-web" type="button">WEB体验
-						<button  class="download-button-qrcode" onmouseover="javascript:showimg();" onmouseout="javascript:hideimg();"></button>
+						<button class="download-button-qrcode" onmouseover="javascript:showimg();" onmouseout="javascript:hideimg();"></button>
 					</div>
 					<div class="qrcode">
 						<img class="qrcode-img" id="qrcode" src="img/二维码.png">
@@ -72,7 +76,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="block3">
+			<div id="block3" class="block3">
 				<div class="headline">
 					<h1>保护您的隐私安全</h1>
 					<p>健康码APP通过随机生成数据保障您的隐私，有效防止个人隐私泄露。我们始终相信，您的隐私安全比什么都重要</p>
@@ -84,7 +88,7 @@
 					<img class="img-pic0" src="img/words.png">
 				</div>
 			</div>
-			<div class="block4">
+			<div id="block4" class="block4">
 				<div class="headline">
 					<h1>更多特性</h1>
 					<p></p>
@@ -125,5 +129,6 @@
 				</div>
 			</div>
 		</div>
+		<script src="js/jquery-3.4.1.min.js"></script>
 	</body>
 </html>

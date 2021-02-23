@@ -18,9 +18,22 @@
 	src: url("../font/FZLTZHJW.TTF")
 }
 
+::selection {
+	background: rgba(0,0,0,0);
+}
+
+::-moz-selection {
+	background: rgba(0,0,0,0);
+}
+
+::-webkit-selection {
+	background: rgba(0,0,0,0);
+}
+
 * {
 	margin: 0;
 	outline: none;
+	border: none;
 	color: #000000;
 }
 
@@ -29,7 +42,9 @@
 	height: auto;
 }
 
-
+html,body{
+	scroll-behavior:smooth;
+}
 
 @media (min-width : 501px) {
 
@@ -58,6 +73,28 @@
 		top: 0;
 		background-color: #ffffff;
 		z-index: 500;
+		box-shadow: 0 1px 100px rgba(0, 0, 0, 0.1);
+	}
+	
+	.bar .logo{
+		position: fixed;
+		left: 35px;
+		display: flex;
+	}
+	
+	.bar .logo img{
+		width: 50px;
+		height: 50px;
+		margin: 15px;
+		border-radius: 8px;
+	}
+	
+	.bar .logo p{
+		padding: 28px 4px;
+		font-size: 24px;
+		line-height: 24px;
+		font-family: "方正兰亭粗黑", sans-serif;
+		letter-spacing: 1px;
 	}
 
 	.bar-download {
@@ -86,16 +123,16 @@
 		display: flex;
 		width: auto;
 		position: fixed;
-		left: calc(50% - 280px);
+		left: calc(38vw - 64px);
 	}
 
 	.bar-navi a {
-		padding: 32px 20px;
+		padding: 32px 1.5vw;
 		font-size: 16px;
 		font-weight: 600;
 		text-decoration: none;
 		color: #000000;
-		margin: 0 30px;
+		margin: 0 1.5vw;
 		transition: color 0.5s ease-in-out;
 		font-family: "方正兰亭黑", sans-serif;
 	}
@@ -314,7 +351,7 @@
 	}
 
 	.block3 .img .img-pic:hover {
-		transform: translateX(-30%);
+		transform: translateX(-40%);
 	}
 
 	.block3 .img0 {
@@ -363,6 +400,7 @@
 		font-size: 0.83vw;
 		font-weight: 900;
 		color: #5a5a5a;
+		line-height: 1.1;
 	}
 
 	.block4 .display .on-display h1 {
@@ -469,6 +507,28 @@
 		top: 0;
 		background-color: #ffffff;
 		z-index: 500;
+		box-shadow: 0 1px 100px rgba(0, 0, 0, 0.1);
+	}
+	
+	.bar .logo{
+		position: fixed;
+		left: 20px;
+		display: flex;
+	}
+	
+	.bar .logo img{
+		width: 50px;
+		height: 50px;
+		margin: 15px 0;
+		border-radius: 8px;
+	}
+	
+	.bar .logo p{
+		padding: 28px 10px;
+		font-size: 24px;
+		line-height: 24px;
+		font-family: "方正兰亭粗黑", sans-serif;
+		letter-spacing: 1px;
 	}
 
 	.bar-download {
@@ -741,6 +801,7 @@
 		font-size: 16px;
 		font-weight: 900;
 		color: #5a5a5a;
+		line-height: 1.1;
 	}
 
 	.block4 .display .on-display h1 {
