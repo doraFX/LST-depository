@@ -10,17 +10,29 @@
 			function showimg() {
 				document.getElementById('qrcode').style.display = "block";
 			}
-		
+
 			function hideimg() {
 				document.getElementById('qrcode').style.display = "none";
+			}
+		</script>
+		<script type="text/javascript">
+			document.onscroll = function() {
+				var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+				var cHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+				var block3h = document.getElementById('block3');
+				if (scrollTop > (block3h.offsetTop - cHeight)) {
+					document.getElementById("bar").className = "bar glass";
+				} else{
+					document.getElementById("bar").className = "bar";
+				}	
 			}
 		</script>
 	</head>
 	<body>
 		<div class="page">
-			<div class="bar">
+			<div id="bar" class="bar">
 				<div class="logo">
-					<img src="./img/logo320.png" >
+					<img src="./img/logo320.png">
 					<p>健康码</p>
 				</div>
 				<a href="#block1"><button class="bar-download" type="button">立即下载</button></a>
@@ -46,7 +58,7 @@
 					<div class="download">
 						<button class="download-button-android" type="button">安卓下载</button>
 						<button class="download-button-web" type="button">WEB体验
-						<button class="download-button-qrcode" onmouseover="javascript:showimg();" onmouseout="javascript:hideimg();"></button>
+							<button class="download-button-qrcode" onmouseover="javascript:showimg();" onmouseout="javascript:hideimg();"></button>
 					</div>
 					<div class="qrcode">
 						<img class="qrcode-img" id="qrcode" src="img/二维码.png">
