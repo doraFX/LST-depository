@@ -1,6 +1,6 @@
 var webparameter = {
 	"version": {
-		"name": "2.5",
-		"code": 205
+		"name": "2.6",
+		"code": 206
 	}
 }
