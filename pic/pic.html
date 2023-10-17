@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>图片</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<meta name="viewport"
+			content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="css/style.css">
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script>
+			window.onbeforeunload = function() {
+				localStorage.removeItem("avatarImage");
+			};
+		</script>
+
+	</head>
+	<body>
+		<div><!---->
+			<div>
+				<div>
+					<div class="page-outer">
+						<div class="page">
+							<div class="avatar"><label for="avatar_upload" class="avatar-img-label">
+									<div class="avatar-img-outer">
+										<img src="img/default.svg" alt="" class="avatar-img-bg">
+										<div class="loading">
+											<div class="sp sp-circle"></div>
+										</div>
+									</div>
+								</label> <input type="file" id="avatar_upload" hidden="hidden"></div>
+							<div class="choose-bar">
+								<div class="avatar-border-list-outer">
+									<div class="avatar-border-list">
+										<div class="list-item-before"></div>
+										<div class="avatar-choose">
+											<a class="list-item avatar-border-active" id="1">
+												<img src="img/1.png" alt="" class="avatar-border-list-img">
+											</a>
+											<a class="list-item" id="2">
+												<img src="img/2.png" alt="" class="avatar-border-list-img">
+											</a>
+											<a class="list-item" id="3">
+												<img src="img/3.png" alt="" class="avatar-border-list-img">
+											</a>
+										</div>
+
+									</div>
+								</div>
+								<div class="choose"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			// 全局变量，用于存储当前选择的<a>的id
+			let selectedAId = 1;
+
+			// 第一个函数：处理上传图片，调整大小，叠加1.png，然后替换src
+			function processAndReplaceImage() {
+				$("#avatar_upload").on("change", function() {
+					const fileInput = $(this);
+					const file = fileInput.prop("files")[0];
+
+					if (file) {
+						const reader = new FileReader();
+						reader.onload = function(e) {
+							const image = new Image();
+							image.src = e.target.result;
+							image.onload = function() {
+								const canvas = document.createElement('canvas');
+								const size = 1000;
+								const minSide = Math.min(image.width, image.height);
+								const x = (image.width - minSide) / 2;
+								const y = (image.height - minSide) / 2;
+
+								canvas.width = size;
+								canvas.height = size;
+								const context = canvas.getContext('2d');
+
+								context.drawImage(image, x, y, minSide, minSide, 0, 0, size, size);
+
+								const overlayImage = new Image();
+								overlayImage.src = 'img/1.png'; // 默认叠加1.png
+								overlayImage.onload = function() {
+									context.drawImage(overlayImage, 0, 0, size, size);
+									const newImage = canvas.toDataURL('image/png');
+									updateAvatar(newImage);
+									localStorage.setItem("originimage", newImage); // 保存原始图片到localStorage
+									localStorage.removeItem("finalimage"); // 移除之前的处理结果
+								};
+							};
+						};
+						reader.readAsDataURL(file);
+					}
+				});
+			}
+
+			// 第二个函数：点击不同的<a>时叠加不同的图片
+			$(".avatar-border-list a").on("click", function() {
+				const aId = $(this).attr("id"); // 从自定义data属性获取<a>的id
+				console.log(aId);
+				if (aId !== selectedAId) {
+					// 如果点击的<a>不是当前选中的<a>，则处理
+					selectedAId = aId;
+					selectedAId = parseInt(selectedAId);
+					console.log(selectedAId);
+
+					const overlayImages = ['img/1.png', 'img/2.png', 'img/3.png'];
+					const overlayImage = new Image();
+					overlayImage.src = overlayImages[aId - 1]; // 根据<a>的id来选择叠加图片
+
+					overlayImage.onload = function() {
+						const canvas = document.createElement('canvas');
+						canvas.width = 1000;
+						canvas.height = 1000;
+						const context = canvas.getContext('2d');
+
+						const originalImage = new Image();
+						originalImage.src = localStorage.getItem("originimage"); // 从localStorage获取原始图片
+						originalImage.onload = function() {
+							context.drawImage(originalImage, 0, 0, 1000, 1000);
+							context.drawImage(overlayImage, 0, 0, 1000, 1000);
+							const newImage = canvas.toDataURL('image/png');
+							updateAvatar(newImage);
+							localStorage.setItem("finalimage", newImage); // 保存处理后的图片到localStorage
+						};
+					};
+
+					// 更新<a>的样式
+					$(".avatar-border-list a").removeClass("avatar-border-active");
+					$(this).addClass("avatar-border-active");
+				}
+			});
+			// }
+
+			function updateAvatar(newImage) {
+				// 替换到class为"avatar-img-bg"的img
+				$(".avatar-img-bg").attr("src", newImage);
+			}
+
+			// 初始化：处理上传图片并默认叠加第一个图片
+			processAndReplaceImage();
+			// addOverlayImageOnClick();
+		</script>
+	</body>
+</html>
