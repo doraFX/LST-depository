@@ -21,14 +21,17 @@
 				<div>
 					<div class="page-outer">
 						<div class="page">
-							<div class="avatar"><label for="avatar_upload" class="avatar-img-label">
+							<div class="avatar">
+								<label for="avatar_upload" class="avatar-img-label">
 									<div class="avatar-img-outer">
 										<img src="img/default.svg" alt="" class="avatar-img-bg">
 										<div class="loading">
 											<div class="sp sp-circle"></div>
 										</div>
 									</div>
-								</label> <input type="file" id="avatar_upload" hidden="hidden"></div>
+								</label> <input type="file" id="avatar_upload" hidden="hidden">
+							</div>
+								<button>下载图片</button>
 							<div class="choose-bar">
 								<div class="avatar-border-list-outer">
 									<div class="avatar-border-list">
@@ -144,6 +147,38 @@
 			// 初始化：处理上传图片并默认叠加第一个图片
 			processAndReplaceImage();
 			// addOverlayImageOnClick();
+			
+			//分割线
+			
+			//图片下载
+			function convertImageToJPEGAndDownload() {
+			  const imgElement = document.querySelector('.avatar-img-bg');
+			  const canvas = document.createElement('canvas');
+			  const ctx = canvas.getContext('2d');
+			
+			  // 设置Canvas的尺寸与图像相同
+			  canvas.width = imgElement.width;
+			  canvas.height = imgElement.height;
+			
+			  // 将图像绘制到Canvas上
+			  ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+			
+			  // 将Canvas转换为JPEG数据URL
+			  const jpegDataURL = canvas.toDataURL('image/jpeg');
+			
+			  // 创建一个下载链接
+			  const downloadLink = document.createElement('a');
+			  downloadLink.href = jpegDataURL;
+			  downloadLink.download = '图片.jpg';
+			
+			  // 模拟点击下载链接
+			  downloadLink.click();
+			}
+			
+			// 添加点击事件处理程序
+			const downloadButton = document.querySelector('button');
+			downloadButton.addEventListener('click', convertImageToJPEGAndDownload);
+
 		</script>
 	</body>
 </html>
