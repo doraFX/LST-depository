@@ -159,7 +159,7 @@ a {
 	text-align: center;
 	text-align: -moz-center;
 	text-align: -webkit-center;
-	/* background: url("../img/background.png"); */
+	/* background: url("../img/background.webp"); */
 	background: linear-gradient(#F57F65, #F8997B, #FCB796, #FED2AF, #FFD4B1);
 	z-index: -2;
 	-webkit-user-select: none;
@@ -186,7 +186,7 @@ a {
 	height: 100%;
 	position: fixed;
 	background-size: cover;
-	background-image: url("../img/page border.png");
+	background-image: url("../img/page border.webp");
 }
 
 .cloud-up {

@@ -23,31 +23,31 @@
 			<div class="page-outer">
 				<div class="page">
 					<div class="choose-bar-bg">
-						<img src="img/下方头像选择框背景.png" alt="">
+						<img src="img/下方头像选择框背景.webp" alt="">
 					</div>
 					<div class="cloud-up">
-						<img src="img/祥云上.png" alt="">
+						<img src="img/祥云上.webp" alt="">
 					</div>
 					<div class="cloud-down">
-						<img src="img/祥云下.png" alt="">
+						<img src="img/祥云下.webp" alt="">
 					</div>
 					<div class="page-border">
 					</div>
 					<div class="avatar">
 						<div class="avatar-head">
-							<img src="img/head.png" alt="">
+							<img src="img/head.webp" alt="">
 						</div>
 						<label for="avatar_upload" class="avatar-img-label">
 							<div class="avatar-img-outer">
-								<img src="img/上传图标.png" alt="" class="avatar-img-bg-pre">
-								<img src="img/上传图标.png" alt="" class="avatar-img-bg" style="display: none;">
+								<img src="img/上传图标.webp" alt="" class="avatar-img-bg-pre">
+								<img src="img/上传图标.webp" alt="" class="avatar-img-bg" style="display: none;">
 								<div class="loading">
 									<div class="sp sp-circle"></div>
 								</div>
 							</div>
 						</label> <input type="file" id="avatar_upload" hidden="hidden">
 						<div class="avatar-info">
-							<img src="img/点击上传头像.png" alt="">
+							<img src="img/点击上传头像.webp" alt="">
 						</div>
 					</div>
 					<button>下载图片</button>
@@ -56,22 +56,22 @@
 							<div class="avatar-border-list">
 								<div class="avatar-choose">
 									<a class="list-item avatar-border-active" id="1">
-										<img src="img/1.png" alt="" class="avatar-border-list-img">
+										<img src="img/1.webp" alt="" class="avatar-border-list-img">
 									</a>
 									<a class="list-item" id="2">
-										<img src="img/2.png" alt="" class="avatar-border-list-img">
+										<img src="img/2.webp" alt="" class="avatar-border-list-img">
 									</a>
 									<a class="list-item" id="3">
-										<img src="img/3.png" alt="" class="avatar-border-list-img">
+										<img src="img/3.webp" alt="" class="avatar-border-list-img">
 									</a>
 									<a class="list-item" id="4">
-										<img src="img/4.png" alt="" class="avatar-border-list-img">
+										<img src="img/4.webp" alt="" class="avatar-border-list-img">
 									</a>
 									<a class="list-item" id="5">
-										<img src="img/5.png" alt="" class="avatar-border-list-img">
+										<img src="img/5.webp" alt="" class="avatar-border-list-img">
 									</a>
 									<a class="list-item" id="6">
-										<img src="img/6.png" alt="" class="avatar-border-list-img">
+										<img src="img/6.webp" alt="" class="avatar-border-list-img">
 									</a>
 								</div>
 
@@ -79,11 +79,11 @@
 						</div>
 						<div class="choose-info">
 							<a href="">
-								<img src="img/箭头左.png" class="Lbtn" alt="">
+								<img src="img/箭头左.webp" class="Lbtn" alt="">
 							</a>
-							<img src="img/选择头像框.png" alt="">
+							<img src="img/选择头像框.webp" alt="">
 							<a href="">
-								<img src="img/箭头右.png" class="Rbtn" alt="">
+								<img src="img/箭头右.webp" class="Rbtn" alt="">
 							</a>
 						</div>
 					</div>
@@ -91,7 +91,7 @@
 			</div>
 		</div>
 		<script>
-			// 第一个函数：处理上传图片，调整大小，叠加1.png，然后替换src
+			// 第一个函数：处理上传图片，调整大小，叠加1.webp，然后替换src
 			function processAndReplaceImage() {
 				$("#avatar_upload").on("change", function() {
 					const fileInput = $(this);
@@ -119,7 +119,7 @@
 								localStorage.setItem("avatarImage", newImage); // 保存图片到localStorage，名为avatarImage
 
 								const overlayImage = new Image();
-								overlayImage.src = 'img/1.png'; // 默认叠加1.png
+								overlayImage.src = 'img/1.webp'; // 默认叠加1.webp
 								overlayImage.onload = function() {
 									context.drawImage(overlayImage, 0, 0, size, size);
 									const finalImage = canvas.toDataURL('image/png');
@@ -145,7 +145,7 @@
 					selectedAId = parseInt(selectedAId);
 					console.log(selectedAId);
 
-					const overlayImages = ['img/1.png', 'img/2.png', 'img/3.png', 'img/4.png', 'img/5.png', 'img/6.png'];
+					const overlayImages = ['img/1.webp', 'img/2.webp', 'img/3.webp', 'img/4.webp', 'img/5.webp', 'img/6.webp'];
 					const overlayImage = new Image();
 					overlayImage.src = overlayImages[aId - 1]; // 根据<a>的id来选择叠加图片
 
