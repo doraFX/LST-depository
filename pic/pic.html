@@ -13,56 +13,84 @@
 				localStorage.removeItem("avatarImage");
 				localStorage.removeItem("originimage");
 				localStorage.removeItem("finalimage");
+				localStorage.setItem("selectedAId", 1);
 			};
 		</script>
 
 	</head>
 	<body>
 		<div><!---->
-			<div>
-				<div>
-					<div class="page-outer">
-						<div class="page">
-							<div class="avatar">
-								<label for="avatar_upload" class="avatar-img-label">
-									<div class="avatar-img-outer">
-										<img src="img/default.svg" alt="" class="avatar-img-bg">
-										<div class="loading">
-											<div class="sp sp-circle"></div>
-										</div>
-									</div>
-								</label> <input type="file" id="avatar_upload" hidden="hidden">
-							</div>
-								<button>下载图片</button>
-							<div class="choose-bar">
-								<div class="avatar-border-list-outer">
-									<div class="avatar-border-list">
-										<div class="list-item-before"></div>
-										<div class="avatar-choose">
-											<a class="list-item avatar-border-active" id="1">
-												<img src="img/1.png" alt="" class="avatar-border-list-img">
-											</a>
-											<a class="list-item" id="2">
-												<img src="img/2.png" alt="" class="avatar-border-list-img">
-											</a>
-											<a class="list-item" id="3">
-												<img src="img/3.png" alt="" class="avatar-border-list-img">
-											</a>
-										</div>
-
-									</div>
+			<div class="page-outer">
+				<div class="page">
+					<div class="choose-bar-bg">
+						<img src="img/下方头像选择框背景.png" alt="">
+					</div>
+					<div class="cloud-up">
+						<img src="img/祥云上.png" alt="">
+					</div>
+					<div class="cloud-down">
+						<img src="img/祥云下.png" alt="">
+					</div>
+					<div class="page-border">
+					</div>
+					<div class="avatar">
+						<div class="avatar-head">
+							<img src="img/head.png" alt="">
+						</div>
+						<label for="avatar_upload" class="avatar-img-label">
+							<div class="avatar-img-outer">
+								<img src="img/上传图标.png" alt="" class="avatar-img-bg-pre">
+								<img src="img/上传图标.png" alt="" class="avatar-img-bg" style="display: none;">
+								<div class="loading">
+									<div class="sp sp-circle"></div>
 								</div>
-								<div class="choose"></div>
 							</div>
+						</label> <input type="file" id="avatar_upload" hidden="hidden">
+						<div class="avatar-info">
+							<img src="img/点击上传头像.png" alt="">
+						</div>
+					</div>
+					<button>下载图片</button>
+					<div class="choose-bar">
+						<div class="avatar-border-list-outer">
+							<div class="avatar-border-list">
+								<div class="avatar-choose">
+									<a class="list-item avatar-border-active" id="1">
+										<img src="img/1.png" alt="" class="avatar-border-list-img">
+									</a>
+									<a class="list-item" id="2">
+										<img src="img/2.png" alt="" class="avatar-border-list-img">
+									</a>
+									<a class="list-item" id="3">
+										<img src="img/3.png" alt="" class="avatar-border-list-img">
+									</a>
+									<a class="list-item" id="4">
+										<img src="img/4.png" alt="" class="avatar-border-list-img">
+									</a>
+									<a class="list-item" id="5">
+										<img src="img/5.png" alt="" class="avatar-border-list-img">
+									</a>
+									<a class="list-item" id="6">
+										<img src="img/6.png" alt="" class="avatar-border-list-img">
+									</a>
+								</div>
+
+							</div>
+						</div>
+						<div class="choose-info">
+							<a href="">
+								<img src="img/箭头左.png" class="Lbtn" alt="">
+							</a>
+							<img src="img/选择头像框.png" alt="">
+							<a href="">
+								<img src="img/箭头右.png" class="Rbtn" alt="">
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<script>
-			// 全局变量，用于存储当前选择的<a>的id
-			let selectedAId = 1;
-
 			// 第一个函数：处理上传图片，调整大小，叠加1.png，然后替换src
 			function processAndReplaceImage() {
 				$("#avatar_upload").on("change", function() {
@@ -87,14 +115,17 @@
 
 								context.drawImage(image, x, y, minSide, minSide, 0, 0, size, size);
 
+								const newImage = canvas.toDataURL('image/png');
+								localStorage.setItem("avatarImage", newImage); // 保存图片到localStorage，名为avatarImage
+
 								const overlayImage = new Image();
 								overlayImage.src = 'img/1.png'; // 默认叠加1.png
 								overlayImage.onload = function() {
 									context.drawImage(overlayImage, 0, 0, size, size);
-									const newImage = canvas.toDataURL('image/png');
-									updateAvatar(newImage);
+									const finalImage = canvas.toDataURL('image/png');
+									updateAvatar(finalImage);
 									localStorage.setItem("originimage", newImage); // 保存原始图片到localStorage
-									localStorage.removeItem("finalimage"); // 移除之前的处理结果
+									localStorage.setItem("finalimage", finalImage); // 保存处理后的图片到localStorage
 								};
 							};
 						};
@@ -105,6 +136,7 @@
 
 			// 第二个函数：点击不同的<a>时叠加不同的图片
 			$(".avatar-border-list a").on("click", function() {
+				selectedAId = localStorage.getItem("selectedAId");
 				const aId = $(this).attr("id"); // 从自定义data属性获取<a>的id
 				console.log(aId);
 				if (aId !== selectedAId) {
@@ -113,7 +145,7 @@
 					selectedAId = parseInt(selectedAId);
 					console.log(selectedAId);
 
-					const overlayImages = ['img/1.png', 'img/2.png', 'img/3.png'];
+					const overlayImages = ['img/1.png', 'img/2.png', 'img/3.png', 'img/4.png', 'img/5.png', 'img/6.png'];
 					const overlayImage = new Image();
 					overlayImage.src = overlayImages[aId - 1]; // 根据<a>的id来选择叠加图片
 
@@ -124,7 +156,7 @@
 						const context = canvas.getContext('2d');
 
 						const originalImage = new Image();
-						originalImage.src = localStorage.getItem("originimage"); // 从localStorage获取原始图片
+						originalImage.src = localStorage.getItem("avatarImage"); // 从localStorage获取原始图片
 						originalImage.onload = function() {
 							context.drawImage(originalImage, 0, 0, 1000, 1000);
 							context.drawImage(overlayImage, 0, 0, 1000, 1000);
@@ -137,6 +169,8 @@
 					// 更新<a>的样式
 					$(".avatar-border-list a").removeClass("avatar-border-active");
 					$(this).addClass("avatar-border-active");
+
+					localStorage.setItem("selectedAId", selectedAId);
 				}
 			});
 			// }
@@ -144,43 +178,98 @@
 			function updateAvatar(newImage) {
 				// 替换到class为"avatar-img-bg"的img
 				$(".avatar-img-bg").attr("src", newImage);
+				$(".avatar-img-bg-pre").hide();
+				$(".avatar-img-bg").show();
 			}
 
 			// 初始化：处理上传图片并默认叠加第一个图片
 			processAndReplaceImage();
 			// addOverlayImageOnClick();
-			
+
 			//分割线
-			
+
 			//图片下载
 			function convertImageToJPEGAndDownload() {
-			  const imgElement = document.querySelector('.avatar-img-bg');
-			  const canvas = document.createElement('canvas');
-			  const ctx = canvas.getContext('2d');
-			
-			  // 设置Canvas的尺寸与图像相同
-			  canvas.width = imgElement.width;
-			  canvas.height = imgElement.height;
-			
-			  // 将图像绘制到Canvas上
-			  ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
-			
-			  // 将Canvas转换为JPEG数据URL
-			  const jpegDataURL = canvas.toDataURL('image/jpeg');
-			
-			  // 创建一个下载链接
-			  const downloadLink = document.createElement('a');
-			  downloadLink.href = jpegDataURL;
-			  downloadLink.download = '图片.jpg';
-			
-			  // 模拟点击下载链接
-			  downloadLink.click();
+				const imgElement = document.querySelector('.avatar-img-bg');
+				const canvas = document.createElement('canvas');
+				const ctx = canvas.getContext('2d');
+
+				// 设置Canvas的尺寸与图像相同
+				canvas.width = imgElement.width;
+				canvas.height = imgElement.height;
+
+				// 将图像绘制到Canvas上
+				ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+
+				// 将Canvas转换为JPEG数据URL
+				const jpegDataURL = canvas.toDataURL('image/jpeg');
+
+				// 创建一个下载链接
+				const downloadLink = document.createElement('a');
+				downloadLink.href = jpegDataURL;
+				downloadLink.download = '图片.jpg';
+
+				// 模拟点击下载链接
+				downloadLink.click();
 			}
-			
+
 			// 添加点击事件处理程序
 			const downloadButton = document.querySelector('button');
 			downloadButton.addEventListener('click', convertImageToJPEGAndDownload);
+		</script>
+		<script>
+			$(document).ready(function() {
 
+				// 点击箭头左的 <a>
+				$('.Lbtn').on('click', function(e) {
+					var selectedAId = parseInt(localStorage.getItem('selectedAId')) || 1;
+					e.preventDefault();
+					// 检查是否在 1 到 3 的范围内
+					if (selectedAId > 1 && selectedAId <= 6) {
+						// 模拟点击对应 ID 的 <a>
+						simulateClick(selectedAId - 1);
+						// 模拟滑动 avatar-choose 以使对应 ID 的 <a> 完整显示
+						scrollAvatarChoose(selectedAId - 1);
+						// 更新选中的 ID
+						selectedAId = selectedAId - 1;
+						// 更新 localstorage 中的 selectedAId
+						localStorage.setItem('selectedAId', selectedAId);
+					}
+				});
+
+				// 点击箭头右的 <a>
+				$('.Rbtn').on('click', function(e) {
+					var selectedAId = parseInt(localStorage.getItem('selectedAId')) || 1;
+					e.preventDefault();
+					// 检查是否在 1 到 3 的范围内
+					if (selectedAId >= 1 && selectedAId < 6) {
+						// 模拟点击对应 ID 的 <a>
+						simulateClick(selectedAId + 1);
+						// 模拟滑动 avatar-choose 以使对应 ID 的 <a> 完整显示
+						scrollAvatarChoose(selectedAId + 1);
+						// 更新选中的 ID
+						selectedAId = selectedAId + 1;
+						// 更新 localstorage 中的 selectedAId
+						localStorage.setItem('selectedAId', selectedAId);
+					}
+				});
+
+				// 模拟点击指定 ID 的 <a> 元素
+				function simulateClick(id) {
+					$('.avatar-choose a#' + id).click();
+				}
+
+				// 模拟滑动 avatar-choose 以使指定 ID 的 <a> 完整显示
+				function scrollAvatarChoose(id) {
+					var $activeElement = $('.avatar-choose a#' + id);
+					var $chooseContainer = $('.avatar-choose');
+					var containerWidth = $chooseContainer.width();
+					var activeElementWidth = $activeElement.outerWidth(true);
+					var scrollLeft = $activeElement.position().left + activeElementWidth / 2 - containerWidth / 2;
+
+					$chooseContainer.scrollLeft(scrollLeft);
+				}
+			});
 		</script>
 	</body>
 </html>
