@@ -218,7 +218,7 @@ a {
 	bottom: 0;
 	width: 90.186915vw;
 	background-color: #fefaf2;
-	height: calc(var(--vh)*36 + 20px);
+	height: calc(36vh + 20px);
 	border-radius: 20px;
 }
 
@@ -447,7 +447,7 @@ a {
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 20vh;
+	margin-bottom: 14vh;
 }
 
 .choose-info img {}
