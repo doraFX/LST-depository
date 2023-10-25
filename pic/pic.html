@@ -18,7 +18,8 @@
 					//alert('这是电脑版微信浏览器');
 					return false;
 				} else {
-					console.log('这不是微信浏览器');
+					alert("请使用微信打开");
+					$(".page-outer").remove();
 				}
 
 				if (ua.match(/MicroMessenger/i) == 'micromessenger') {
