@@ -185,8 +185,10 @@ a {
 	width: 100%;
 	height: 100%;
 	position: fixed;
-	background-size: cover;
+/* 	background-size: contain;
 	background-image: url("../img/page border.webp");
+	background-repeat: no-repeat;
+	background-position: center; */
 }
 
 .cloud-up {
@@ -264,6 +266,8 @@ a {
 .avatar-img-outer {
 	width: calc(100vw - 160px);
 	height: calc(100vw - 160px);
+	max-height: 30vh;
+	max-width: 30vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
