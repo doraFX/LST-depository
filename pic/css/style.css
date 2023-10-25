@@ -211,12 +211,25 @@ a {
 .choose-bar-bg {
 	position: fixed;
 	bottom: 0;
-
+	width: 90.186915vw;
+	background-color: #fefaf2;
+	height: calc(var(--vh)*16 + 213px);
+	border-radius: 20px;
 }
 
-.choose-bar-bg img {
+.choose-bar-bg2 {
+	position: fixed;
+	bottom: 0;
+	width: 90.186915vw;
+	background-color: #fefaf2;
+	left: 4.9065425vw;
+	height: 100%;
+	z-index: 0;
+}
+
+/* .choose-bar-bg img {
 	width: 96%;
-}
+} */
 
 .logo,
 .page {
@@ -459,7 +472,8 @@ a {
 	overflow-y: hidden;
 	-webkit-overflow-scrolling: touch;
 	scrollbar-width: none;
-	-ms-overflow-style: none
+	-ms-overflow-style: none;
+	margin-top: 20px;
 }
 
 .avatar-border-list-outer::-webkit-scrollbar {
