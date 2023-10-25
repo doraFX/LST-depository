@@ -9,28 +9,6 @@
 		<link rel="stylesheet" href="css/style.css">
 		<script src="js/jquery-3.4.1.min.js"></script>
 		<script>
-			function isWx() { //判断是否为微信
-				var ua = window.navigator.userAgent.toLowerCase();
-
-				//alert(ua);
-				if (ua.match(/windowswechat/i) == "windowswechat") {
-
-					//alert('这是电脑版微信浏览器');
-					return false;
-				} 
-				if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-
-					return true;
-				}
-
-				else {
-					alert("请使用微信打开");
-					$(".page-outer").remove();
-				}
-			}
-
-		</script>
-		<script>
 			window.onbeforeunload = function() {
 				localStorage.removeItem("avatarImage");
 				localStorage.removeItem("originimage");
