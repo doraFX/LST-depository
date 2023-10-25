@@ -215,7 +215,7 @@ a {
 	bottom: 0;
 	width: 90.186915vw;
 	background-color: #fefaf2;
-	height: calc(var(--vh)*16 + 213px);
+	height: calc(var(--vh)*16 + 200px);
 	border-radius: 20px;
 }
 
@@ -242,7 +242,7 @@ a {
 	color: #fff;
 	max-width: 80%;
 	height: calc(var(--vh)*22);
-	padding: calc(var(--vh)*3) 0
+	padding: calc(var(--vh)*3);
 }
 
 .avatar {
