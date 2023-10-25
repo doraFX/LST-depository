@@ -17,17 +17,16 @@
 
 					//alert('这是电脑版微信浏览器');
 					return false;
-				} else {
-					alert("请使用微信打开");
-					$(".page-outer").remove();
-				}
-
+				} 
 				if (ua.match(/MicroMessenger/i) == 'micromessenger') {
 
 					return true;
 				}
 
-				return false;
+				else {
+					alert("请使用微信打开");
+					$(".page-outer").remove();
+				}
 			}
 
 		</script>
