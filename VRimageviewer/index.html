@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+		<title>VR 图片查看器</title>
+		<style>
+			body {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+				margin: 0;
+			}
+
+			.head {
+				z-index: 9999;
+			}
+
+			#change-image-button {
+				display: none;
+				position: fixed;
+				top: 10px;
+				left: 10px;
+				background-color: #3498db;
+				color: #fff;
+				border: none;
+				padding: 10px 15px;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="head">
+			<h1>VR 图片查看器</h1>
+			<button id="upload-image-button">上传图片</button>
+		</div>
+		<a-scene>
+			<a-sky id="vr-image" src=""></a-sky>
+			<a-camera></a-camera>
+		</a-scene>
+		<button id="change-image-button">更换图片</button>
+
+		<script>
+			const uploadImageButton = document.getElementById('upload-image-button');
+			const changeImageButton = document.getElementById('change-image-button');
+			const vrImage = document.getElementById('vr-image');
+
+			// Initialize IndexedDB
+			const dbName = "vrImagesDB";
+			const dbVersion = 1;
+			const request = indexedDB.open(dbName, dbVersion);
+			let db;
+
+			request.onsuccess = function(event) {
+				db = event.target.result;
+			};
+
+			request.onupgradeneeded = function(event) {
+				db = event.target.result;
+				const imagesStore = db.createObjectStore('images', {
+					keyPath: 'id',
+					autoIncrement: true
+				});
+			};
+
+			// Check for previously stored image in IndexedDB
+			request.onsuccess = function(event) {
+				const transaction = db.transaction('images', 'readwrite');
+				const imagesStore = transaction.objectStore('images');
+				const getRequest = imagesStore.get(1);
+
+				getRequest.onsuccess = function(event) {
+					const image = event.target.result;
+					if (image && image.url) {
+						vrImage.setAttribute('src', image.url);
+						changeImageButton.style.display = 'block';
+					}
+				};
+			};
+
+			uploadImageButton.addEventListener('click', function() {
+				const input = document.createElement('input');
+				input.type = 'file';
+				input.accept = 'image/*';
+				input.click();
+
+				input.addEventListener('change', function() {
+					const file = input.files[0];
+					if (file) {
+						const imageUrl = URL.createObjectURL(file);
+						vrImage.setAttribute('src', imageUrl);
+						changeImageButton.style.display = 'block';
+
+						// Store the image URL in IndexedDB for future use
+						const transaction = db.transaction('images', 'readwrite');
+						const imagesStore = transaction.objectStore('images');
+						imagesStore.put({
+							url: imageUrl
+						}, 1);
+					}
+				});
+			});
+
+			changeImageButton.addEventListener('click', function() {
+				const input = document.createElement('input');
+				input.type = 'file';
+				input.accept = 'image/*';
+				input.click();
+
+				input.addEventListener('change', function() {
+					const file = input.files[0];
+					if (file) {
+						const imageUrl = URL.createObjectURL(file);
+						vrImage.setAttribute('src', imageUrl);
+						// Update the stored image URL in IndexedDB
+						const transaction = db.transaction('images', 'readwrite');
+						const imagesStore = transaction.objectStore('images');
+						imagesStore.put({
+							url: imageUrl
+						}, 1);
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
