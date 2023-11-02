@@ -1,128 +1,137 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>VR 图片浏览器</title>
 		<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-		<title>VR 图片查看器</title>
-		<style>
-			body {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-				height: 100vh;
-				margin: 0;
-			}
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<link rel="stylesheet" href="css/style.css">
+		<script>
+			window.onload = function() {
+				var deleteRequest = window.indexedDB.deleteDatabase("imageDB");
 
-			.head {
-				z-index: 9999;
-			}
+				deleteRequest.onsuccess = function() {
+					console.log("Database deleted successfully.");
+				};
 
-			#change-image-button {
-				display: none;
-				position: fixed;
-				top: 10px;
-				left: 10px;
-				background-color: #3498db;
-				color: #fff;
-				border: none;
-				padding: 10px 15px;
-				border-radius: 5px;
-				cursor: pointer;
+				deleteRequest.onerror = function() {
+					console.error("Error deleting database.");
+				};
 			}
-		</style>
+		</script>
 	</head>
 	<body>
-		<div class="head">
-			<h1>VR 图片查看器</h1>
-			<button id="upload-image-button">上传图片</button>
+		<div id="sceneContainer">
+			<a-scene>
+				<a-sky id="image" src="default.jpg"></a-sky>
+				<a-camera>
+					<a-cursor></a-cursor>
+				</a-camera>
+			</a-scene>
 		</div>
-		<a-scene>
-			<a-sky id="vr-image" src=""></a-sky>
-			<a-camera></a-camera>
-		</a-scene>
-		<button id="change-image-button">更换图片</button>
+		<div class="head">
+			<h1>VR 图片浏览器</h1>
+			<button id="uploadButton">上传图片</button>
+		</div>
+		<div class="top" style="display: none;">
+			<button id="uploadButton2">更改图片</button>
+		</div>
+		<!-- <div id="instructions">
+			<p>Drag to Rotate</p>
+			<p>Click the button to upload or replace the current image</p>
+		</div> -->
 
 		<script>
-			const uploadImageButton = document.getElementById('upload-image-button');
-			const changeImageButton = document.getElementById('change-image-button');
-			const vrImage = document.getElementById('vr-image');
+			$(document).ready(function() {
+				// Initialize IndexedDB
+				var db;
+				var request = window.indexedDB.open("imageDB", 1);
 
-			// Initialize IndexedDB
-			const dbName = "vrImagesDB";
-			const dbVersion = 1;
-			const request = indexedDB.open(dbName, dbVersion);
-			let db;
-
-			request.onsuccess = function(event) {
-				db = event.target.result;
-			};
-
-			request.onupgradeneeded = function(event) {
-				db = event.target.result;
-				const imagesStore = db.createObjectStore('images', {
-					keyPath: 'id',
-					autoIncrement: true
-				});
-			};
-
-			// Check for previously stored image in IndexedDB
-			request.onsuccess = function(event) {
-				const transaction = db.transaction('images', 'readwrite');
-				const imagesStore = transaction.objectStore('images');
-				const getRequest = imagesStore.get(1);
-
-				getRequest.onsuccess = function(event) {
-					const image = event.target.result;
-					if (image && image.url) {
-						vrImage.setAttribute('src', image.url);
-						changeImageButton.style.display = 'block';
-					}
+				request.onupgradeneeded = function(event) {
+					db = event.target.result;
+					var objectStore = db.createObjectStore("images", {
+						keyPath: "id",
+						autoIncrement: true
+					});
 				};
-			};
 
-			uploadImageButton.addEventListener('click', function() {
-				const input = document.createElement('input');
-				input.type = 'file';
-				input.accept = 'image/*';
-				input.click();
+				request.onsuccess = function(event) {
+					db = event.target.result;
 
-				input.addEventListener('change', function() {
-					const file = input.files[0];
-					if (file) {
-						const imageUrl = URL.createObjectURL(file);
-						vrImage.setAttribute('src', imageUrl);
-						changeImageButton.style.display = 'block';
+					// Load the last saved image from IndexedDB, if available
+					var transaction = db.transaction("images", "readonly");
+					var objectStore = transaction.objectStore("images");
+					var request = objectStore.openCursor(null, "prev");
 
-						// Store the image URL in IndexedDB for future use
-						const transaction = db.transaction('images', 'readwrite');
-						const imagesStore = transaction.objectStore('images');
-						imagesStore.put({
-							url: imageUrl
-						}, 1);
-					}
+					request.onsuccess = function(event) {
+						var cursor = event.target.result;
+						if (cursor) {
+							$('#image').attr('src', cursor.value.dataURL);
+							cursor.continue();
+						}
+					};
+				};
+
+				// Handle image upload and replacement
+				$('#uploadButton').on('click', function() {
+					var input = document.createElement('input');
+					input.type = 'file';
+					input.accept = 'image/*';
+					input.click();
+
+					input.onchange = function() {
+						var file = input.files[0];
+						var reader = new FileReader();
+
+						reader.onload = function() {
+							var dataURL = reader.result;
+
+							// Update the image source
+							$('#image').attr('src', dataURL);
+
+							// Save the uploaded image to IndexedDB
+							var transaction = db.transaction("images", "readwrite");
+							var objectStore = transaction.objectStore("images");
+							objectStore.put({
+								dataURL: dataURL
+							});
+
+							input.value = ''; // Reset the input
+						};
+
+						reader.readAsDataURL(file);
+						$(".head").hide();
+						$(".top").show();
+					};
 				});
-			});
-
-			changeImageButton.addEventListener('click', function() {
-				const input = document.createElement('input');
-				input.type = 'file';
-				input.accept = 'image/*';
-				input.click();
-
-				input.addEventListener('change', function() {
-					const file = input.files[0];
-					if (file) {
-						const imageUrl = URL.createObjectURL(file);
-						vrImage.setAttribute('src', imageUrl);
-						// Update the stored image URL in IndexedDB
-						const transaction = db.transaction('images', 'readwrite');
-						const imagesStore = transaction.objectStore('images');
-						imagesStore.put({
-							url: imageUrl
-						}, 1);
-					}
+				
+				$('#uploadButton2').on('click', function() {
+					var input = document.createElement('input');
+					input.type = 'file';
+					input.accept = 'image/*';
+					input.click();
+				
+					input.onchange = function() {
+						var file = input.files[0];
+						var reader = new FileReader();
+				
+						reader.onload = function() {
+							var dataURL = reader.result;
+				
+							// Update the image source
+							$('#image').attr('src', dataURL);
+				
+							// Save the uploaded image to IndexedDB
+							var transaction = db.transaction("images", "readwrite");
+							var objectStore = transaction.objectStore("images");
+							objectStore.put({
+								dataURL: dataURL
+							});
+				
+							input.value = ''; // Reset the input
+						};
+				
+						reader.readAsDataURL(file);
+					};
 				});
 			});
 		</script>
