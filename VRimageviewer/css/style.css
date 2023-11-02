@@ -1,9 +1,17 @@
+*{
+	color: #ffffff;
+}
+
+
+button {
+	background-color: #303030;
+}
 .head {
 	position: absolute;
 	z-index: 9999;
 	padding: 20px 40px;
 	border-radius: 10px;
-	background-color: #e3e3e3;
+	background-color: #101010;
 	display: flex;
 	flex-direction: column;
 	justify-items: center;
@@ -66,7 +74,7 @@ body {
 	align-items: center;
 	justify-content: center;
 	height: 100vh;
-	background-color: #ffffff;
+	background-color: #000000;
 }
 
 #sceneContainer {
